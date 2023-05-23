@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <string android:name="font_family_light"
+        tools:ignore="ExtraText">sans-serif-light</string>
+    <string android:name="font_family_medium">sans-serif-medium</string>
+    <string android:name="font_family_regular">sans-serif</string>
+    <string android:name="font_family_condensed">sans-serif-condensed</string>
+    <string android:name="font_family_black">sans-serif-black</string>
+    <string android:name="font_family_thin">sans-serif-thin</string>
+</resources>

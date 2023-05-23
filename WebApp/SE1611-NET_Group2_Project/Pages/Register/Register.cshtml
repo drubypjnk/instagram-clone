@@ -1,0 +1,61 @@
+﻿@page
+@model SE1611_NET_Group2_Project.Pages.Register.IndexModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Register page";
+}
+<link href="~/css/register.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Overpass+Mono" rel="stylesheet">
+@{
+    if (TempData.ContainsKey("ErrorMessage"))
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+}
+
+
+<main>
+    <div class="page">
+        <div class="header">
+            <div class="logo"><img src="..\Images\images\logo-light.png" alt="Instagram logo" class="logo-light"> </div>
+            
+            <p>Sign up to see photos and videos from your friends.</p>
+            <button><i class="fab fa-facebook-square"></i> Register new account</button>
+            <div>
+                <hr>
+                <p>OR</p>
+                <hr>
+            </div>
+        </div>
+        <div class="container">
+            <form method="post" asp-page="Register">
+                <input type="text" placeholder="Username" asp-for="@Model.Username" required>
+                <input type="email" placeholder="Email" asp-for="@Model.Email" required>
+                <input type="text" placeholder="Password" asp-for="@Model.Password" required>
+                <input type="password" placeholder="RePassword" asp-for="@Model.RePassword" required>
+                <button type="submit"class="fab fa-facebook-square">>Sign up</button>
+            </form>
+
+            
+        </div>
+    </div>
+    <div class="option">
+        <p>Have an account? <a href="/Login/Login">Log in</a></p>
+    </div>
+    <div class="footer">
+        <ul>
+            <li><a href="">ABOUT</a></li>
+            <li><a href="">HELP</a></li>
+            <li><a href="">PRESS</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="">JOBS</a></li>
+            <li><a href="">PRIVACY</a></li>
+            <li><a href="">TEMS</a></li>
+            <li><a href="">LOCATIONS</a></li>
+            <li><a href="">TOP ACCOUNTS</a></li>
+            <li><a href="">HASHTAGS</a></li>
+            <li><a href="">LANGUAGE</a></li>
+        </ul>
+        <p>© 2020 PICTUREGRAM</p>
+    </div>
+</main>

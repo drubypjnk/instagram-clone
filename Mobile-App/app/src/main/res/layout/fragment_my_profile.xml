@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.MyProfileFragment"
+    >
+
+
+  <TextView
+      android:id="@+id/tvNumPost"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="204dp"
+      android:layout_marginTop="44dp"
+
+      android:gravity="center_horizontal"
+      android:textColor="@color/black"
+      android:textSize="18sp"
+      android:textStyle="bold"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/tvFollower"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="44dp"
+      android:gravity="center"
+
+      android:textColor="@color/black"
+      android:textSize="18sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toStartOf="@+id/tvFlowing"
+      app:layout_constraintHorizontal_bias="0.542"
+      app:layout_constraintStart_toEndOf="@+id/tvNumPost"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/tvEditProfile"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="12dp"
+      android:background="@drawable/black_border"
+      android:paddingLeft="15dp"
+      android:paddingTop="1dp"
+      android:paddingRight="15dp"
+      android:paddingBottom="1dp"
+      android:text="Edit Your Profile"
+      android:textAllCaps="true"
+
+      android:textColor="@color/black"
+
+      android:textSize="13dp"
+      app:layout_constraintBottom_toTopOf="@+id/tvDesc"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.766"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/edit_profile"
+      app:layout_constraintVertical_bias="0.0" />
+
+  <TextView
+      android:id="@+id/tvFlowing"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="44dp"
+      android:layout_marginEnd="44dp"
+
+      android:gravity="center"
+      android:textColor="@color/black"
+      android:textSize="18sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/textView8"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="16dp"
+      android:text="Following"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvFlowing" />
+
+  <TextView
+      android:id="@+id/textView4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="204dp"
+      android:layout_marginTop="8dp"
+      android:text="Posts"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvNumPost" />
+
+  <TextView
+      android:id="@+id/edit_profile"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:gravity="center"
+      android:text="Followers"
+      app:layout_constraintEnd_toStartOf="@+id/textView8"
+      app:layout_constraintHorizontal_bias="0.617"
+      app:layout_constraintStart_toEndOf="@+id/textView4"
+      app:layout_constraintTop_toBottomOf="@+id/tvFollower" />
+
+  <de.hdodenhof.circleimageview.CircleImageView
+
+      android:id="@+id/profile_image"
+      android:layout_width="101dp"
+      android:layout_height="119dp"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="8dp"
+
+      android:background="@drawable/circle_outline"
+      android:src="@drawable/empty_image"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/tvName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text=""
+      android:textColor="@color/black"
+      android:textSize="18dp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.138"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+  <TextView
+      android:id="@+id/tvFullName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+      android:layout_marginTop="4dp"
+      android:text=""
+
+      android:textColor="@color/black"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.155"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+  <TextView
+      android:id="@+id/tvDesc"
+
+      android:layout_width="340dp"
+      android:layout_height="40dp"
+      android:layout_marginTop="4dp"
+      android:background="@drawable/border_full"
+      android:paddingLeft="25dp"
+
+      android:paddingRight="25dp"
+
+      android:paddingBottom="2dp"
+      android:text=""
+      android:textColor="@color/gray"
+      android:textSize="11sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.661"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvFullName" />
+
+  <LinearLayout
+      android:id="@+id/linear_navbar"
+      android:layout_width="match_parent"
+      android:layout_height="36dp"
+      android:layout_marginTop="12dp"
+      android:background="@color/white_2"
+      android:orientation="horizontal"
+      android:paddingTop="3dp"
+      android:paddingBottom="3dp"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvDesc">
+
+    <ImageView
+        android:id="@+id/send_icon"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dip"
+        android:scaleType="centerCrop"
+        android:src="@drawable/post_icon"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Posts" />
+
+
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rcPostImage"
+      android:layout_width="410dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:paddingBottom="250dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/linear_navbar"
+      app:layout_constraintVertical_bias="0.0" />
+
+  <ProgressBar
+      android:id="@+id/progressBar_userProfile"
+      style="?android:attr/progressBarStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="204dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/tvDesc"
+      app:layout_constraintVertical_bias="0.233" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

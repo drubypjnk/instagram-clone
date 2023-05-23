@@ -1,0 +1,188 @@
+﻿@page 
+@using SE1611_NET_Group2_Project.DTO;
+@model SE1611_NET_Group2_Project.Pages.NewFeedModel
+@{
+    var listPost = (List<PostDTO>)ViewData["ListPost"];
+    var listComment = (List<CommentDTO>)ViewData["ListComment"];
+    var user_id = (String)ViewData["user_id"];
+}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions {
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken;
+    }
+}
+<div class="main_feed">
+@if(listPost != null)
+{
+    @foreach (var post in listPost)
+    {
+        <div class="post" style="">
+            <div class="post-profile" style="margin-left:30px">
+                <span>
+                    <img  style="border-radius: 50%; height:50px; width:50px;object-fit: cover;" src="@post.Avatar" alt="Error" />
+                </span>
+                <a href="/UserProfile/@post.UserId" class="profile-username" style="text-decoration: none">
+                    <span style="margin-left:10px; font-weight: bold; color:black;">
+                        @post.Username
+                    </span>
+                </a>
+            </div>
+            <div class="post-content" style="margin-top:20px">
+                <div class="post-img" style="text-align:center">
+                    <img style="width:75%" src="@post.Image" alt="Error" />
+                </div>
+                <div class="post-react" style="margin-top: 10px; margin-left:103px">
+                    @if(post.isLiked == true)
+                    {
+                        <a onclick="like(@post.PostId)">
+                            <span id=heart-@post.PostId class="liked">
+                                <i class="fa fa-heart fa-2xl" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    } else
+                    {
+                        <a onclick="like(@post.PostId)">
+                            <span id=heart-@post.PostId>
+                                <i class="fa fa-heart-o fa-2xl" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    }
+                    <a style="margin-left:10px; color:black" href="#" data-bs-toggle="modal" data-bs-target="#modal-@post.PostId" onclick="getComments(@post.PostId)">
+                        <span>
+                            <i class="fa fa-comment-o fa-2xl" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </div>
+                <div style="margin-top: 10px; margin-left:103px">
+                    <strong>@post.TotalLike</strong> Likes
+                </div>
+                <div class="post-caption" style="margin-top: 10px; margin-left:103px">
+                    <a href="/UserProfile/@post.UserId" class="profile-username" style="text-decoration: none; color: black;">
+                        <span style="font-weight: bold">
+                            @post.Username
+                        </span>
+                    </a>
+                    <span class="caption">@post.Content</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-@post.PostId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Post detail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <img src="@post.Image" alt="Error" width="100%" />
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row" style="max-height:100vh; overflow-x:auto">
+                                    <div class="cmt-username">
+                                        <span>
+                                            <img style="border-radius: 50%; height:50px; width:50px" src="@post.Avatar" alt="Error" />
+                                        </span>
+                                        <a href="/UserProfile/@post.UserId" class="profile-username" style="text-decoration: none">
+                                            <span style="margin-left:10px; font-weight: bold; color:black;">
+                                                @post.Username
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <hr style="margin-top:10px" />
+                                    <div class="cmt-content" id="cmt-content-@post.PostId">
+                                        COMMENT
+                                    </div>
+                                    <div style="margin-bottom: 10px">
+                                        <form>
+                                            <input type="text" placeholder="Add comment here!" id="add-content-cmt-@post.PostId" />
+                                            <button type="button" class="btn btn-outline-primary" onclick="addComment(@post.PostId,'@post.UserId',document.getElementById('add-content-cmt-@post.PostId').value)">Send</button>
+                                        </form>
+                                    </div>
+                                    @*<div class="col-md-9 offset-md-3">
+                            </div>*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @*<div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div>*@
+                </div>
+            </div>
+        </div>
+    }
+}
+</div>
+
+<script src="https://kit.fontawesome.com/fa825fdbfd.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    function like(postId) {
+        var el = "#heart-" + postId;
+        if ($(el).hasClass("liked")) {
+            $(el).html('<i class="fa fa-heart-o fa-2xl" aria-hidden="true"></i>');
+            $(el).removeClass("liked");
+        } else {
+            $(el).html('<i class="fa fa-heart fa-2xl" aria-hidden="true"></i>');
+            $(el).addClass("liked");
+        }
+
+        @*likePost(userId, postId);*@
+    }
+
+    @*function likePost(user_id, postId) {
+        $.ajax({
+            headers:
+            {
+                "RequestVerificationToken": "@GetAntiXsrfRequestToken()"
+            },
+            data: {
+                user_id: user_id,
+                post_id: postId
+            },
+            url: "/NewFeed?handler=LikePost",
+            type: "POST",
+            success: function () {
+            }
+        });
+    }*@
+
+    function getComments(postId) {
+        $.ajax({
+            data: {post_id: postId },
+            url: "/NewFeed?handler=GetComments",
+            type:"GET",
+            success: function(listComments) {
+                document.getElementById("cmt-content-"+postId).innerHTML=listComments;
+            }
+        });
+    }
+
+    function addComment(postid, user_id, content) {
+        $.ajax({
+            headers:
+            {
+                "RequestVerificationToken": "@GetAntiXsrfRequestToken()"
+            },
+            data: {
+                post_id: postid,
+                user_id: user_id,
+                content: content
+            },
+            url: "/NewFeed?handler=AddComment",
+            type:"POST",
+            success: function(listcomments) {
+                document.getElementById("cmt-content-" + postid).innerHTML = listcomments;
+                document.getElementById("add-content-cmt-" + postid).value= '';
+            }
+        });
+    }
+
+</script>

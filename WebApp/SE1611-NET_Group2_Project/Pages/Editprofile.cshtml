@@ -1,0 +1,284 @@
+﻿@page
+@model SE1611_NET_Group2_Project.Pages.EditprofileModel
+@{
+}
+ <link href="~/css/editProfile.css" rel="stylesheet">
+   <main class="edit-profile">
+       <div class="col-1">
+
+       </div>
+       <nav class="col-2 navbar-container">
+           <div class="navbar-container__content"/>
+                <p id="change__infor__item"class="item nav_active">Edit profile</p>
+                <p id="change__password__item" class="item">Change Password</p>
+           </div>
+       </nav>
+            <section class=" col-9 profile-form">
+                <header class="profile-form__header">
+                    <div class="profile-form__avatar-container">
+                        <img id="avt"
+                            src="@Model.current_user.avartarImage.Url"
+                            class="profile-form__avatar"
+                        />
+                    </div>
+                    <h4 class="profile-form__title">@Model.current_user.UserId</h4>
+                </header>
+               <form id="userform" method="post" class="edit-profile__form" enctype="multipart/form-data">
+                      <div class="edit-profile__form-row">
+                        <label for="username" class="edit-profile__label">UserName
+                        </label>
+                        <input 
+                            id="username"
+                            type="text"
+                            value="@Model.current_user.Username"
+                            class="edit-profile__input"
+                            name="username"
+                            required
+                        />
+                    </div>
+                     <div class="edit-profile__form-row">
+                        <label for="name" class="edit-profile__label">Name
+                        </label>
+                        <input 
+                            id="full_name"
+                            name="full_name"
+                            type="text"
+                            value="@Model.current_user.FullName"
+                            class="edit-profile__input"
+                            required
+                        />
+                    </div>
+                     <div class="edit-profile__form-row">
+                        <label for="file" class="edit-profile__label">avatar
+                        </label>
+                     <input type="file" name="file" id="file"onchange="getFileName()" accept="image/*"
+                     value="~/Images/default_file.jpg">
+                    <input type="hidden" name="url" id="url"/>
+                    </div>
+                     <div class="edit-profile__form-row">
+                        <label for="gender" class="edit-profile__label">Gender</label>
+                        <select id="gender" required name="gender">
+                    @if (Model.current_user.Gender == 1)
+                    {
+                        <option  selected value="1">Male</option>
+                        <option value="0">Female</option>
+                    }
+                    else
+                    {
+                        <option value="1">Male</option>
+                        <option selected value="0">Female</option>
+                    }
+                </select>
+                    </div>
+                    <div class="edit-profile__form-row" >
+                        <label for="bio" class="edit-profile__label">
+                            Bio
+                        </label>
+                        <textarea name="description" id="description" 
+                        class="edit-profile__textarea">@Model.current_user.Desription</textarea>
+                    </div>
+                    <div class="edit-profile__form-row">
+                        <label for="email" class="edit-profile__label">
+                            Email
+                        </label>
+                        <input required
+                            name="email"
+                            type="email"
+                            value="@Model.current_user.Email"
+                            class="edit-profile__input"
+                            id="email"
+                        />
+                    </div>
+               
+                     
+
+                    <div class="edit-profile__form-row">
+                        <label for="phone-number" class="edit-profile__label">
+                            Address
+                        </label>
+                        <input 
+                           required
+                           name="address"
+                            type="text"
+                            class="edit-profile__input"
+                            id="address"
+                            value="@Model.current_user.Location"
+                        />
+                    </div>
+                   
+                    <div class="edit-profile__form-row">
+                        <label class="edit-profile__label"></label>
+                        <button type="submit" asp-page-handler="saveInformation" 
+                        class="button-custom"
+                        value="Submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+                  <form id="changepassform" method="post" class="edit-profile__form changeform" enctype="multipart/form-data">
+                      <div class="edit-profile__form-row">
+                        <label for="oldPass" class="edit-profile__label">Old password
+                        </label>
+                        <input 
+                            id="oldPass"
+                            type="password"
+                            value=""
+                            class="edit-profile__input"
+                            name="oldPass"
+                            required
+                        />
+                    </div>
+                     <div class="edit-profile__form-row">
+                        <label for="newPass" class="edit-profile__label">New password
+                        </label>
+                        <input 
+                            id="newPass"
+                            name="newPass"
+                            type="password"
+                            value=""
+                            class="edit-profile__input"
+                            required
+                        />
+                    </div>
+
+                     <div class="edit-profile__form-row">
+                        <label for="confirmPass" class="edit-profile__label">Confirm new password
+                        </label>
+                        <input 
+                            id="confirmPass"
+                            name="confirmPass"
+                            type="password"
+                            value=""
+                            class="edit-profile__input"
+                            required
+                        />
+                    </div>
+                     <div class="edit-profile__form-row">
+                        <label class="edit-profile__label"></label>
+                        <button class="button-custom" type="button" onclick="changePassword()">
+                            save
+                         </button>
+                    </div>
+                        <span id="error" class="error" ></span>
+                </form>
+            </section>
+   </main>
+
+        <script>
+            window.onload= function(){
+                //var x=@Model.current_user.UserId.ToString().ToLowerInvariant;
+                //console.log('log',x);
+                //if(x==null){
+                //    window.location.href='/Login/login';
+                //}
+                addEvent();
+            }
+        function addEvent() {
+
+            $('.item').click(function(){
+               if(!$(this).hasClass("nav_active")){
+                         $(".item").removeClass("nav_active");
+                         $('#userform').hide();
+                         $('#changepassform').hide();
+                         $(this).addClass("nav_active");
+                         if($(this).attr('id')=='change__password__item'){
+                             $('#changepassform').show();
+                         }
+                         if($(this).attr('id')=='change__infor__item'){
+                             $('#userform').show();
+                         }
+                }else{
+                    return false;//this prevents flicker
+               }
+            });
+            }
+
+        function getFileName() {
+            const fileInput = document.getElementById("file");
+            const filePath = fileInput.value;
+            const fileName = "/Images/" + filePath.split("\\").pop();
+            document.getElementById("url").value = fileName;
+            previewImage();
+        }
+            function previewImage() {
+              var preview = document.getElementById('avt');
+              var file = document.querySelector('input[type=file]').files[0];
+              var reader = new FileReader();
+
+              reader.addEventListener("load", function () {
+                preview.src = reader.result;
+              }, false);
+
+              if (file) {
+                reader.readAsDataURL(file);
+              }
+            }
+
+
+         function submitForm(){
+          
+            const form=document.getElementById('form-submit');
+            if(check){
+                form.submit();
+            }else{
+                event.preventDefault();
+            }
+        }
+
+            var s=@Model.cur_password.ToString().ToLowerInvariant();
+        function changePassword(){
+            var confirm=document.getElementById('confirmPass').value;
+            var newpass=document.getElementById('newPass').value;
+            var oldpass=document.getElementById('oldPass').value;
+            console.log('confirm',confirm);
+            console.log('newpass',newpass);
+            console.log('oldpass',oldpass);
+            console.log('s',s);
+           
+            if(s==oldpass){
+                if(newpass==confirm){
+                    //$('#error').css('color', 'green');
+                    // $('#error').text("Save successfully");
+                    //   $('#error').show; 
+
+                       $.ajax({
+                    type: "Get",
+                    url: "/Editprofile?handler=change",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "string",
+                    data: { 
+                        newpass:newpass
+                    },
+                    headers: {
+              
+                        RequestVerificationToken:
+                            $('input:hidden[name="__RequestVerificationToken"]').val()
+                    },
+                    succces: function(data){
+                               
+                }
+                })
+                    .done(function (result) {
+                        console.log("result=",result);
+                    });
+                       $('#error').css('color', 'green');
+                     $('#error').text("Save successfully");
+                       $('#error').show();     
+                       s=newpass;
+                     //  @Model.cur_password=newpass;
+                  
+                }else{
+                     $('#error').css('color', 'red');
+                     $('#error').text("New pass and confirm pass not match!");
+                      $('#error').show(); 
+                }
+            }else{
+                $('#error').css('color', 'red');
+                 $('#error').text("Current pass is not true !");
+                      $('#error').show(); 
+            }
+        }
+       
+
+        </script>

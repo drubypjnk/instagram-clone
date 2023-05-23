@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_friend_item"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="3dp"
+            android:background="@drawable/circle_outline"
+            android:gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar_dimaria"
+            android:layout_gravity="center_vertical"
+
+            />
+        <LinearLayout android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="10dp"
+
+
+            >
+            <TextView
+                android:id="@+id/tv_friend_username_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Angeldimariajm"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+
+                />
+            <TextView
+                android:id="@+id/tv_friend_name_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Angel Dimaria"
+                android:textColor="@color/grey"
+                android:textSize="13dp"
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_unFollow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:text="unfollow"
+            android:layout_marginRight="15dp"
+            android:backgroundTint="@color/colorPrimary"
+            />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

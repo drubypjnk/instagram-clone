@@ -1,0 +1,237 @@
+﻿
+@page "{id}"
+@using SE1611_NET_Group2_Project.DTO
+@model SE1611_NET_Group2_Project.Pages.MyProfileModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+     var user_id =  @HttpContextAccessor.HttpContext.Session.GetString("user_id");
+}
+      <link href="~/css/myProfile.css" rel="stylesheet">
+        <main class="profile-container profile-container__i">
+            <section class="profile">
+                <header class="profile__header">
+                    <div class="profile__avatar-container">
+                        <img 
+                            src="@Model.userInforDTO.avartarImage.Url"
+                            class="profile__avatar"
+                        />
+                    </div>
+                    <div class="profile__info">
+                        <div class="profile__name">
+                            <h1 class="profile__title">@Model.userInforDTO.Username</h1>
+                            <a href="~/EditProfile" class="profile__button u-fat-text edt-button">Edit profile</a>
+                            @*<i class="fa fa-cog fa-2x" id="cog"></i>*@
+                        </div>
+                        <ul class="profile__numbers">
+                            <li class="profile__posts">
+                                <b class="profile__number u-fat-text">@Model.userInforDTO.listPost.Count</b> posts
+                            </li>
+                            <li class="profile__followers"  data-bs-toggle="modal" data-bs-target="#ModalFollower">
+                                <b class="profile__number u-fat-text">@Model.userInforDTO.listFollower.Count</b> followers
+                            </li>
+                            <li class="profile__following"  data-bs-toggle="modal" data-bs-target="#ModalFollowing">
+                                <b class="profile__number u-fat-text">@Model.userInforDTO.listFollowing.Count</b> following
+                            </li>
+                        </ul>
+                        <div class="profile__bio">
+                            <b class="profile__full-name u-fat-text">@Model.userInforDTO.FullName</b>
+                            <div class="profile__bio__content">
+                                <span>@Model.userInforDTO.Desription</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <div class="profile__nav">
+                    @*<div class="col-4"></div>*@
+                   <div class="navbar__item--post">
+                       <svg aria-label="" class="_ab6-" color="rgb(38, 38, 38)" fill="rgb(38, 38, 38)" height="12" role="img" viewBox="0 0 24 24" width="12"><rect fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="18" x="3" y="3"></rect><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="9.015" x2="9.015" y1="3" y2="21"></line><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="14.985" x2="14.985" y1="3" y2="21"></line><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="21" x2="3" y1="9.015" y2="9.015"></line><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="21" x2="3" y1="14.985" y2="14.985"></line></svg>
+                       <span>Post</span>
+                   </div>
+                </div>
+                <div class="profile__pictures">
+                   
+                    @foreach(PostInforDTO post in Model.userInforDTO.listPost)
+                        {
+                
+                        <a href="image-detail.html" class="profile-picture">
+                                    <img
+                                         src="@post.postImage.Url"
+                                        class="profile-picture__picture"
+                                        alt="Base64 encoded image"
+                                    />
+                                    <div class="profile-picture__overlay">
+                                        <span class="profile-picture__number">
+                                            <i class="fa fa-heart"></i> @post.Like
+                                        </span>
+                                        <span class="profile-picture__number">
+                                            <i class="fa fa-comment"></i> @post.Comment
+                                        </span>
+                                    </div>
+                                </a>
+                        }
+                </div>
+            </section>
+        </main>
+        @*Modal*@
+
+<!-- Modal Following -->
+<div class="modal fade" id="ModalFollowing" tabindex="-1" aria-labelledby="ModalFollowing" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalFollowing">Following</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="window.location.href='/MyProfile/@(HttpContextAccessor.HttpContext.Session.GetString("user_id"))"></button>
+      </div>
+      <div class="modal-body">
+        <div class="following__container">
+            @foreach (var follow in Model.Followings)
+            {
+             <div class="following__container-item">
+                   <div class="col-2 following-item following-item__avatar">
+                       <img src="@follow.avatar" onclick="window.location.href='/UserProfile/@follow.UserId'"/>
+                   </div>
+                   <div class=" col-7 following-item following-item__username" 
+                    onclick="window.location.href='/UserProfile/@follow.UserId'">
+                       <b>@follow.UserName</b>
+                       
+                   </div>
+                   <div class="following-item following-item__button">
+                       @if(follow.UserId==user_id){
+                                    
+                                }else{
+                                    <button class=" col-3 profile__button" onclick="fun('@follow.UserId.ToString()',this)">
+                                                following
+                                    </button>
+                                }
+                   </div>
+               </div>
+            }   
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Follower -->
+<div class="modal fade" id="ModalFollower" tabindex="-1" aria-labelledby="ModalFollower" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalFollower">Follower</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="following__container">
+            @foreach (var follow in Model.Followers)
+            {
+             <div class="following__container-item">
+                   <div class="col-2 following-item following-item__avatar">
+                       <img src="@follow.avatar" onclick="window.location.href='/UserProfile/@follow.UserId'"/>
+                   </div>
+                   <div class=" col-7 following-item following-item__username" 
+                    onclick="window.location.href='/UserProfile/@follow.UserId'">
+                       <b>@follow.UserName</b>
+                       
+                   </div>
+                   <div class="following-item following-item__button">
+                       @if(follow.UserId==user_id){
+                                    
+                                }else{
+
+                                    if (follow.flag == true)
+                                    {
+                                        <button class=" col-3 profile__button" onclick="fun('@follow.UserId.ToString()',this)">
+                                            following
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class=" col-3 profile__button button-custom" onclick="fun('@follow.UserId.ToString()',this)">
+                                          follow
+                                        </button>
+                                    }
+                                }
+                   </div>
+               </div>
+            }   
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+   
+     
+    function fun(uid,e){
+        console.log("id",uid);
+        if(e.innerHTML.trim()=="following"){
+            e.style.backgroundColor = "#0297FD";
+            e.innerHTML="follow";
+            unFollow2(uid);
+        }else if(e.innerHTML.trim()=="follow"){
+            e.style.backgroundColor = "#DBDBDB";
+            e.innerHTML="following";
+            follow2(uid);
+        }else{
+
+        }
+        
+    }
+    function follow2(uid){
+        console.log('uid',uid);
+        $.ajax({
+            type: "Get",
+            url: "/UserProfile/Handlers?handler=follow",
+            contentType: "application/json; charset=utf-8",
+            dataType: "string",
+            data: { 
+                follow_to:uid
+            },
+            headers: {
+              
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            succces: function(data){
+                  console.log('success',data);   
+        }
+        })
+            .done(function (result) {
+                console.log("result=",result);
+            });
+           
+
+    }  
+    function unFollow2(uid){
+                console.log('unfollow',uid);
+        $.ajax({
+            type: "Get",
+            url: "/UserProfile/Handlers?handler=unfollow",
+            contentType: "application/json; charset=utf-8",
+            dataType: "string",
+            data: { 
+                follow_to:uid
+            },
+            headers: {
+              
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            succces: function(data){
+            console.log('success',data);                    
+        }
+        })
+            .done(function (result) {
+                console.log("result=",result);
+            });
+            
+
+    }
+</script>

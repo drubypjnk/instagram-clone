@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:background="@drawable/hover_background"
+                                                   android:id="@+id/cl_activity_row">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp" app:srcCompat="@drawable/baseline_account_circle_24"
+            android:id="@+id/imv_avatar" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="15dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="15dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="15dp"/>
+    <TextView
+            android:text="Quang, Quang and others shared 10 photos. 2d"
+            android:layout_height="wrap_content" android:id="@+id/tv_desription"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toEndOf="@+id/imv_avatar"
+            android:layout_marginStart="8dp" android:layout_marginTop="24dp" android:maxLines="2"
+            android:width="200dp" android:textColor="@color/black" android:textStyle="bold"
+            android:layout_width="wrap_content"/>
+    <Button
+            android:text="Follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/btn_follow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_desription" android:textSize="12sp" android:textStyle="bold"
+            android:layout_marginStart="4dp" android:backgroundTint="@color/blue"
+            app:layout_constraintVertical_bias="0.285"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/tv_target"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desription" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/imv_avatar" android:textSize="8sp" android:visibility="invisible"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/tv_isFollow"
+            android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/tv_target"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desription" android:textSize="8sp"
+            android:visibility="invisible"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

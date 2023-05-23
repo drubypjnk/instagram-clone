@@ -1,0 +1,94 @@
+﻿@page
+@model SE1611_NET_Group2_Project.Pages.Users.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Person.UserId" class="control-label"></label>
+                <input asp-for="Person.UserId" class="form-control" />
+                <span asp-validation-for="Person.UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Username" class="control-label"></label>
+                <input asp-for="Person.Username" class="form-control" />
+                <span asp-validation-for="Person.Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Password" class="control-label"></label>
+                <input asp-for="Person.Password" class="form-control" />
+                <span asp-validation-for="Person.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.FullName" class="control-label"></label>
+                <input asp-for="Person.FullName" class="form-control" />
+                <span asp-validation-for="Person.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Description" class="control-label"></label>
+                <input asp-for="Person.Description" class="form-control" />
+                <span asp-validation-for="Person.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Age" class="control-label"></label>
+                <input asp-for="Person.Age" class="form-control" />
+                <span asp-validation-for="Person.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Gender" class="control-label"></label>
+                <input asp-for="Person.Gender" class="form-control" />
+                <span asp-validation-for="Person.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Location" class="control-label"></label>
+                <input asp-for="Person.Location" class="form-control" />
+                <span asp-validation-for="Person.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Email" class="control-label"></label>
+                <input asp-for="Person.Email" class="form-control" />
+                <span asp-validation-for="Person.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Status" class="control-label"></label>
+                <input asp-for="Person.Status" class="form-control" />
+                <span asp-validation-for="Person.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.PhotoId" class="control-label"></label>
+                <select asp-for="Person.PhotoId" class ="form-control" asp-items="ViewBag.PhotoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.IsPrivate" class="control-label"></label>
+                <input asp-for="Person.IsPrivate" class="form-control" />
+                <span asp-validation-for="Person.IsPrivate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.DeleteFlag" class="control-label"></label>
+                <input asp-for="Person.DeleteFlag" class="form-control" />
+                <span asp-validation-for="Person.DeleteFlag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
